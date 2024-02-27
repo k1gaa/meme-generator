@@ -14,10 +14,11 @@ form.addEventListener("submit", (e) => {
   title = titleInput.value;
 
   const fileReader = new FileReader();
+  const file = imageInput.files[0];
 
-  if (imageInput.files[0]) {
-    fileName = imageInput.files[0].name;
-    fileReader.readAsDataURL(imageInput.files[0]);
+  if (file) {
+    fileName = file.name;
+    fileReader.readAsDataURL(file);
   }
 
   fileReader.addEventListener("load", () => {
@@ -33,9 +34,9 @@ const createMeme = () => {
   canvas.height = img.naturalHeight;
   ctx.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight);
 
-  ctx.font = "bold 50px Impact";
+  ctx.font = "bold 200px Impact";
   ctx.fillStyle = "rgb(255, 255, 255)";
-  ctx.fillText(title, 0, 50);
+  ctx.fillText(title, 0, 200);
 
   let a = document.createElement("a");
   a.href = canvas.toDataURL("image/jpeg");
