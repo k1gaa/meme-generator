@@ -3,6 +3,7 @@ const ctx = canvas.getContext("2d");
 const form = document.querySelector("form");
 const imageInput = document.querySelector("#controls__image");
 const titleInput = document.querySelector("#controls__title");
+let downloadInput = document.querySelector("#controls__download");
 
 let img = new Image();
 let fileName = "";
@@ -38,10 +39,6 @@ const createMeme = () => {
   ctx.fillStyle = "rgb(255, 255, 255)";
   ctx.fillText(title, 0, 200);
 
-  let a = document.createElement("a");
-  a.href = canvas.toDataURL("image/jpeg");
-  a.download = `${fileName.slice(0, -4)} meme`;
-  a.innerHTML = "download";
-
-  document.body.appendChild(a);
+  downloadInput.href = canvas.toDataURL("image/jpeg");
+  downloadInput.download = `${fileName.slice(0, -4)} meme`;
 };
