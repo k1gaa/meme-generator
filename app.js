@@ -12,7 +12,7 @@ let title = "";
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  title = titleInput.value;
+  title = titleInput.value.toUpperCase();
 
   const fileReader = new FileReader();
   const file = imageInput.files[0];
@@ -32,12 +32,31 @@ form.addEventListener("submit", (e) => {
 
 const createMeme = () => {
   canvas.width = img.naturalWidth;
-  canvas.height = img.naturalHeight;
-  ctx.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight);
+  canvas.height = img.naturalHeight * 2;
 
-  ctx.font = "bold 200px Impact";
-  ctx.fillStyle = "rgb(255, 255, 255)";
-  ctx.fillText(title, 0, 200);
+  ctx.fillStyle = "black";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  ctx.drawImage(
+    img,
+    0,
+    canvas.height * 0.25,
+    img.naturalWidth,
+    img.naturalHeight
+  );
+
+  ctx.font = `bold ${canvas.width / 9}px Impact`;
+  titleWidth = ctx.measureText(title).width;
+  ctx.strokeStyle = "black";
+  ctx.lineWidth = 8;
+  ctx.fillStyle = "white";
+
+  ctx.strokeText(
+    title,
+    canvas.width / 2 - titleWidth / 2,
+    canvas.height * 0.17
+  );
+  ctx.fillText(title, canvas.width / 2 - titleWidth / 2, canvas.height * 0.17);
 
   downloadInput.href = canvas.toDataURL("image/jpeg");
   downloadInput.download = `${fileName.slice(0, -4)} meme`;
